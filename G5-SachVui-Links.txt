@@ -1,0 +1,10 @@
+(See Final Release Document)
+
+●	Link to the GitHub source code repository:
+
+	https://github.com/thang109/Library.git
+
+●	Link to the deployed website:
+
+	https://sachvui.io.vn/
+	
