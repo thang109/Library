@@ -156,7 +156,7 @@
                                         </a>
                                     </div>
                                     <div id="wishlist_block" class="wishlist col-auto">
-                                        <a href="library/user/favorite-list">
+                                        <a href="index.php?fc=module&module=gdz_wishlist&controller=mywishlist">
                                             <i class="icon-heart-o"></i>
                                             <span class="text">Wishlist</span>
                                         </a>

@@ -39,36 +39,37 @@
 
                             <div class="product-actions">
                                 <% if (user != null) {%>
-                                <% if (user.vip_sub_id != null) {%>
-                                <div>
-                                <button class="btn btn-primary mr-2" data-toggle="modal" data-target="#rentModalVip">
-                                    Thuê 
-                                </button> 
-                                    </div>
-                                <a class="price new text-danger" href="${pageContext.request.contextPath}/user/upgrade-vip">
-                                   Nạp Vip Để Không Mất Phí
-                                </a> 
-                                <div>
-                                <button class="btn btn-outline-dark ml-2" ${book.getFavor() == null ? "data-toggle='modal' data-target='#addFavoriteModal'" : "onclick='already_favor()'"} >
-                                    Thêm vào yêu thích
-                                </button>
-                                </div>
-                                    
-                                <% } else {%>
-                                <button class="btn btn-primary mr-2" data-toggle="modal" data-target="#rentModal">Thuê
-                                </button>
-                                <button class="price new text-danger" href="${pageContext.request.contextPath}/user/upgrade-vip">
-                                   Nạp Vip Để Không Mất Phí
-                                </button>
-                                <button class="btn btn-outline-dark ml-2" ${book.getFavor() == null ? "data-toggle='modal' data-target='#addFavoriteModal'" : "onclick='already_favor()'"} >
-                                    Thêm vào yêu thích
-                                </button>
-                                <% }%>
-                                <%} else {%>
-                                <button class="btn btn-primary mr-2" onclick="toastr_login()">Thuê</button>
-                                <button class="price new text-danger" onclick="toastr_login()">Nạp Vip Để Không Mất Phí</button>
-                                <button class="btn btn-outline-dark ml-2" onclick="toastr_login()">Thêm vào yêu thích
-                                </button>
+                                    <% if (user.vip_sub_id != null) {%>
+                                        <% if (Integer.parseInt(((MyObject) request.getAttribute("book")).renting) >= Integer.parseInt(((MyObject) request.getAttribute("book")).quantity) ) {%>
+                                            <button class="btn btn-primary mr-2" onclick="toastr.warning('Không còn đủ sách trong kho.')">
+                                                Thuê
+                                            </button>
+                                        <%} else {%>
+                                            <button class="btn btn-primary mr-2" data-toggle="modal" data-target="#rentModalVip">
+                                                Thuê
+                                            </button>
+                                         <%}%>
+                                        <button class="btn btn-outline-dark ml-2" ${book.getFavor() == null ? "data-toggle='modal' data-target='#addFavoriteModal'" : "onclick='already_favor()'"} >
+                                            Thêm vào yêu thích
+                                        </button>
+                                    <% } else {%>
+                                        <% if (Integer.parseInt(((MyObject) request.getAttribute("book")).renting) >= Integer.parseInt(((MyObject) request.getAttribute("book")).quantity) ) {%>
+                                            <button class="btn btn-primary mr-2" onclick="toastr.warning('Không còn đủ sách trong kho.')">
+                                                Thuê
+                                            </button>
+                                        <%} else {%>
+                                            <button class="btn btn-primary mr-2" data-toggle="modal" data-target="#rentModal">
+                                                Thuê
+                                            </button>
+                                        <%}%>
+                                        <button class="btn btn-outline-dark ml-2" ${book.getFavor() == null ? "data-toggle='modal' data-target='#addFavoriteModal'" : "onclick='already_favor()'"} >
+                                            Thêm vào yêu thích
+                                        </button>
+                                    <% }%>
+                                    <%} else {%>
+                                        <button class="btn btn-primary mr-2" onclick="toastr_login()">Thuê</button>
+                                        <button class="btn btn-outline-dark ml-2" onclick="toastr_login()">Thêm vào yêu thích
+                                        </button>
                                 <%}%>
                             </div>
                         </div>
@@ -83,7 +84,7 @@
                         </li>
                         <li class="nav-item">
                             <a data-toggle="tab" href="#review-nav" class="nav-link">
-                                Đánh giá
+                                Đánh giá ${reviews_number}
                             </a>
                         </li>
                     </ul>
@@ -371,6 +372,7 @@
         from_date = $("#from_date").val();
         var date = new Date(from_date);
         var currentDate = new Date();
+        currentDate.setHours(0,0,0,0)
         if (date < currentDate) {
             toastr.warning("Ngày bắt đầu mượn phải sau ngày hiện tại.")
             $("#from_date").val(""); // Clear the input
@@ -422,6 +424,7 @@
         from_date_vip = $("#from_date_vip").val();
         var date = new Date(from_date_vip);
         var currentDate = new Date();
+        currentDate.setHours(0,0,0,0)
         if (date < currentDate) {
             toastr.warning("Ngày bắt đầu mượn phải sau ngày hiện tại.")
             $("#from_date_vip").val(""); // Clear the input

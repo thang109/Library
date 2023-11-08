@@ -1,5 +1,6 @@
 package Database;
 
+import Controller.UserController;
 import Init.Config;
 
 import java.lang.reflect.Field;
@@ -12,11 +13,11 @@ public class DB {
     public static Connection getConnection() {
         try {
             Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
-            String serverName = "DESKTOP-HL2R6TD";
-            String port = "1433";
-            String databaseName = "library";
-            String username = "sa";
-            String password = "123";
+            String serverName = Config.db_server;
+            String port = Config.db_port;
+            String databaseName = Config.db_name;
+            String username = Config.db_username;
+            String password = Config.db_password;
             String url = "jdbc:sqlserver://" + serverName + ":" + port + ";databaseName=" + databaseName + ";trustServerCertificate=true;";
             return DriverManager.getConnection(url, username, password);
         } catch (ClassNotFoundException | SQLException e) {
@@ -145,6 +146,7 @@ public class DB {
         return (int) (difference / (1000 * 60 * 60 * 24)); // Convert milliseconds to days
     }
     public static void main(String[] args) throws SQLException {
-        System.out.println(getConnection().getCatalog());
+        boolean check_phone = UserController.RegisterController.checkPhone("+84763416782");
+        System.out.println(check_phone);
     }
 }

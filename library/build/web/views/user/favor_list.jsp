@@ -5,22 +5,22 @@
 
 <div class="container ">
     <div class="row col-12">
-        <h2>Wish List</h2>
-        <table class="table table-bordered table-striped col-12" id="table">
-            <thead>
+            <h3>User List</h3>
+            <table border="1" class="table table-bordered table-striped col-12" id="table">
+                <thead>
                 <tr>
                     <th scope="col">Tên sách</th>
                     <th scope="col">Hình ảnh</th>
                     <th scope="col">Ghi chú</th>
                     <th class="col-1">Thao tác</th>
                 </tr>
-            </thead>
-            <tbody>
+                </thead>
+                <tbody>
                 <c:forEach items="${favors}" var="favor">
                     <tr>
                         <td>
                             <a href="${pageContext.request.contextPath}/view-book?id=${favor.getBook_id()}">
-                                ${favor.getBook_title()}
+                                    ${favor.getBook_title()}
                             </a>
                         </td>
                         <td>
@@ -31,14 +31,11 @@
                             <a href="${pageContext.request.contextPath}/user/delete-favor?id=${favor.getId()}">
                                 <button class="btn btn-danger">Xóa</button>
                             </a>
-                            <a>
-                                <button class="btn btn-danger">Đọc Sách</button>
-                            </a>
                         </td>
                     </tr>
                 </c:forEach>
-            </tbody>
-        </table>
+                </tbody>
+            </table>
     </div>
 </div>
 <%@ include file="/master/foot.jsp" %>
